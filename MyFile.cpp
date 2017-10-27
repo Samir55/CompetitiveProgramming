@@ -14,6 +14,15 @@ int vis[10];
 vector< vector<int> > g;
 vector< vector<pair<int, int>>> gcost;
 
+/// CHECKING.
+//~ lp2(i, n) {
+        //~ cout << i << " " << g[i].size() <<  " ";
+        //~ lp(j, g[i].size()) {
+           //~ cout << g[i][j].first << " ";
+        //~ }
+        //~ cout << endl;
+    //~ }
+    
 void bfs(int src) {
 	vis[src] = true;
 	queue<int> q;
