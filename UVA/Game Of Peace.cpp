@@ -11,8 +11,7 @@
 using namespace std;
 #define lp(i, n)        for(int i=0;i<(int)(n);++i)
 
-int x, n, m, y;
-int res = 0;
+
 
 long long int gcd(long long int a, long long int b){
     a = abs(a); b = abs(b);
@@ -21,11 +20,13 @@ long long int gcd(long long int a, long long int b){
 
 int main() {
 //    freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
+//    freopen("output.txt", "w", stdout);
     int t;
     cin >> t;
     int k = 1;
     while (t--) {
+        int x, n, m, y;
+        int res = 0;
         cin >> x >> n >> y >> m;
         long long a, b;
         a = x;
@@ -37,7 +38,7 @@ int main() {
                 a += b;
             }
         }
-        if (m > n){
+        if (m >= n){
             if ( a >= b) {
                 a += y;
             } else if (b > a) {
