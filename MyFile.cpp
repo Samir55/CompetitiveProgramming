@@ -14,6 +14,24 @@ int vis[10];
 vector< vector<int> > g;
 vector< vector<pair<int, int>>> gcost;
 
+void sieve() {
+vector<bool> isPrime(1000000+1, true);
+    vector<int> primeNum;
+    int i,j;
+    int count = 0 ;
+    
+    isPrime[1] = false;
+    for(i = 2; i <= 1000000; i++){
+        if(isPrime[i]){
+            count++;
+            primeNum.push_back(i);
+            for(j = i+i; j <=1000000; j+= i)
+                isPrime[j] = false;
+        }
+    }
+
+}
+
 /// CHECKING.
 //~ lp2(i, n) {
         //~ cout << i << " " << g[i].size() <<  " ";
