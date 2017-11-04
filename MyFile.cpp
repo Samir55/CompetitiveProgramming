@@ -14,6 +14,39 @@ int vis[10];
 vector< vector<int> > g;
 vector< vector<pair<int, int>>> gcost;
 
+struct UnionFind {
+	vector<int> rank, parent; // Use rank compression method.
+	int forests;
+
+	UnionFind(int n) {
+		rank = vector<int>(n), parent = vector<int>(n);
+		lp(i, n) {
+			parent[i] = i;
+			rank[i] = 1;
+		}
+	}
+
+	int find_set(int x) {
+		if (x == parent[x]) return x;
+		return parent[x] = find_set(parent[x]);
+	}
+
+	void link(int x, int y) {
+		if (rank[x] > rank[y]) swap(x, y);
+		parent[x] = y;
+		if (rank[x] == rank[y]) rank[y]++;
+	}
+
+	bool union_sets(int x, int y) {
+		x = find_set(x), y = find_set(y);
+		if (x != y) {
+			link(x, y);
+			forests--;
+		}
+		return x != y;
+	}
+};
+
 void sieve() {
 vector<bool> isPrime(1000000+1, true);
     vector<int> primeNum;
