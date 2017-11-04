@@ -33,8 +33,9 @@ struct UnionFind {
 
 	void link(int x, int y) {
 		if (rank[x] > rank[y]) swap(x, y);
-		parent[x] = y;
+		parent[x] = y; // The bigger into the smaller.
 		if (rank[x] == rank[y]) rank[y]++;
+		else rank[x] += rank[y];
 	}
 
 	bool union_sets(int x, int y) {
@@ -45,7 +46,18 @@ struct UnionFind {
 		}
 		return x != y;
 	}
+
+	vector<vector<int>> connected_componenets() {
+		// It gets the number of connected components dynamically, which means at each edge insertion you can calcualte the number of connected componenets
+		// It has advantage over the traditional DFS.
+		vector<vector<int>> list(parent.size());
+		lp(i, parent.size()) {
+			list[find_set(i)].push_back(i);
+		}
+		return list;
+	}
 };
+
 
 void sieve() {
 vector<bool> isPrime(1000000+1, true);
