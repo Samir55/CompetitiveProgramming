@@ -18,7 +18,7 @@ int main(){
         int res = 0;
         int total_min = 0;
         int numt = 0;
-        for (int i = 0; i <= (1 << k) - 1; i++) {
+        for (int i = (1 << k) - 1; i >= 0; i--) {
             int curr = 0;
             int nt = 0;
             for (int j = 0; j < k; j++) {
@@ -28,7 +28,7 @@ int main(){
                     nt++;
                 }
             }
-            if (curr <= n && curr >= total_min && nt >= numt) {
+            if (curr <= n && curr >= total_min) {
                 total_min = curr;
                 res = i;
                 numt = nt;
@@ -38,8 +38,7 @@ int main(){
             bool bit = res & ( 1<< j);
             if (bit) cout << t[j] << " ";
         }
-        cout << "sum: " << total_min << endl;
+        cout << "sum:" << total_min << endl;
     }
 	return 0;
 }
-

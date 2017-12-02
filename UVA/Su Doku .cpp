@@ -25,7 +25,8 @@ void solve(int el) {
         // Print the solution, yasta.
         lp(i, n*n) {
             lp(j, n*n) {
-                cout << grid[i][j] << " ";
+                if (j) cout << " ";
+                cout << grid[i][j];
             }
             cout << endl;
         }
@@ -61,7 +62,9 @@ int main() {
 //    freopen("input.txt", "r", stdin);
 //    freopen("output.txt", "w", stdout);
 
+    int p = 0;
     while (cin >> n) {
+        if (p) cout << endl;
         memset(grid, 0, sizeof(grid));
         memset(uc, 0, sizeof(uc));
         memset(ur, 0, sizeof(ur));
@@ -84,6 +87,7 @@ int main() {
         if (!found_khalas) {
             cout << "NO SOLUTION" << endl;
         }
+        p++;
     }
     return 0;
 }
