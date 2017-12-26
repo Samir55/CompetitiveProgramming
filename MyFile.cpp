@@ -70,6 +70,61 @@ struct edge {
 	}
 };
 
+// Prim's algorithm 
+pair<int, vector<edge>> mst_prim_1(vector<edge> edgelist, vector<vector<int>> adj_mat) // O(v^2)
+{ 
+	int cur_node = 0, n = adj_mat.size();
+	int mind, mst_cost = 0, mini;
+	
+	vector<int> vis (n, 0), prev(n);
+	vector<int> dist (n, OO);
+	vector<edge> edges;
+	
+	lp(k, n-1) {
+		vis[cur_node] = 1, mind = OO, mini = -1;
+		lp(i, n) {
+			if (!vis[i]) {
+				if (adj_mat[cur_node][i] < dist[i]) 
+					dist[i] = adj_mat[cur_node][i], prev[i] = cur_node;
+				
+				if (dist[i] < mind) mind = dist[i], mini = i;
+			}
+		}
+		if (mini == -1) break;
+		edges.push_back(edge(prev[mini], mini, adj_mat[prev[mini]][mini]));
+		cur_node = mini, mst_cost += dist[cur_node];
+	}
+	if (int (edges.size()) != n) return make_pair(-OO, vector<edge>());
+	return make_pair(mst_cost, edges);
+}
+
+pair<int, vector<edge> > mst_prim_2(vector< vector<edge>> adj_list) // O(E logV)
+{
+	int n = adj_list.size(), mst_cost = 0;
+	vector<int> vis(n, 0);
+	vector<edge> edges;
+	
+	priority_queue<edge> q;
+	q.push(edge(-1, 0, 0));
+	
+	lp (i, n) {
+		edge e = q.top(); q.pop();
+		if (vis[e.to]) continue;
+		vis[e.to] = true;
+		mst_cost += e.w;
+		
+		if (e.to) edges.push_back(e);
+		
+		for (auto ne : adj_list[e.to]) {
+			if (!vis[ne.to]) {
+				q.push(ne);
+			}
+		}
+	}
+	if (int (edges.size()) != n) return make_pair(-OO, vector<edge>());
+	return make_pair(mst_cost, edges);
+}
+ 
 // Kruksal algorithm.
 pair<int, vector<edge>> mst_kruskal(vector<edge> edgeList, int n) {
 	UnionFind uf(n);
