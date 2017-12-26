@@ -10,6 +10,8 @@
 using namespace std;
 #define lp(i, n)        for(int i=0;i<(int)(n);++i)
 
+const int OO = 1e7;
+
 int vis[10];
 vector< vector<int> > g;
 vector< vector<pair<int, int>>> gcost;
@@ -57,6 +59,37 @@ struct UnionFind {
 		return list;
 	}
 };
+
+struct edge {
+	int from, to , w;
+	
+	edge(int from, int to, int w) : from(from), to(to), w(w) {}
+	
+	bool operator < (const edge& e) const {
+		return w > e.w;
+	}
+};
+
+// Kruksal algorithm.
+pair<int, vector<edge>> mst_kruskal(vector<edge> edgeList, int n) {
+	UnionFind uf(n);
+	vector<edge> edges;
+	int mst_cost = 0;
+	priority_queue<edge>q;
+	for (auto e : edgeList) q.push(e);
+	
+	while (!q.empty()) {
+		edge e = q.top(); q.pop();
+		
+		if (uf.union_sets(e.from, e.to)) {
+			mst_cost += e.w;
+			edges.push_back(e);
+		}
+	}
+	
+	if (int (edges.size()) != n) return make_pair(-OO, vector<edge>());
+	return make_pair(mst_cost, edges);
+}
 
 
 void sieve() {
