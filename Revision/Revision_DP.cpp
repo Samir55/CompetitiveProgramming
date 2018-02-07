@@ -219,3 +219,137 @@ int main() {
     read_input_lcs();
     return 0;
 }
+
+
+
+
+
+
+
+
+// Ahmed Samir Hamed
+// Revision Greedy / DP/ Graphs.
+#include <iostream>
+#include <stdio.h>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <queue>
+#include <set>
+#include <map>
+#include <cmath>
+#include <cstring>
+using namespace std;
+#define lp(i, n)        for(int i=0;i<(int)(n);++i)
+
+/* Problem Job Sequencing
+ */
+struct job {
+    int deadline;
+    int profit;
+    job(int a, int b) : deadline(a), profit(b) {}
+    bool operator < (const job& j) const {
+        return profit < j.profit;
+    }
+};
+
+void job_sequencing() {
+    int n;
+    cin >> n;
+
+    priority_queue<job> jobs;
+    vector<int> deadlines(1000, 0);
+    int total_profit = 0;
+
+    lp(i, n) {
+        int d, j;
+        cin >> d >> j;
+        jobs.push(job(d, j));
+    }
+
+    while (!jobs.empty()) {
+        job j = jobs.top(); jobs.pop();
+        for (int i = j.deadline; i >= 0 ; i--) {
+            if (deadlines[i] == 0) {
+                total_profit += j.profit;
+                deadlines[i] = j.profit;
+            }
+        }
+    }
+
+    // The total profit is total_profit
+}
+
+
+/* Problem: Greedy Algorithm to find Minimum number of Coins
+ * Given V, return the minumum number of coin change for thais value  { 1, 2, 5, 10, 20, 50, 100, 500, 1000}
+ */
+void solve_coins() {
+    int n;
+    cin >> n;
+    int res[9] = {};
+    int coins[] = { 1, 2, 5, 10, 20, 50, 100, 500, 1000};
+
+    int i = 8;
+    while (n > 0 ) {
+        while (coins[i] <= n) {
+            res[i]++;
+            n -= coins[i];
+        }
+        i--;
+    }
+
+    // Print the array.
+}
+
+
+/* Problem DP Longest Increasing subsequence.
+ *
+ *
+ */
+void lis() {
+    int t;
+    cin >> t;
+    while(t--) {
+        int n;
+        cin >> n;
+        if (n == 0) {
+            cout << 0 << endl;
+            continue;
+        }
+        vector<int> nums;
+        lp (i, n) {
+            int x;
+            cin >> x;
+            nums.push_back(x);
+        }
+
+        vector<int> dp_lis(n, 0);
+
+        for (int i = 0; i < n; i++) {
+            int mx = 0;
+            for (int j = i - 1; j >= 0; j--) {
+                if (nums[j] < nums[i]) {
+                    mx = max(mx, dp_lis[j]);
+                }
+            }
+            dp_lis[i] = mx + 1;
+        }
+
+//        lp(i, n) {
+//            cout << dp_lis[i] << " ";
+//        }
+//        cout << endl;
+        // Print the result the longest increasing sub sequence
+        cout << *max_element(dp_lis.begin(), dp_lis.end()) << endl;
+    }
+}
+
+/*
+ * Problem Edit Distance.
+ */
+
+int main() {
+    lis();
+    return 0;
+}
