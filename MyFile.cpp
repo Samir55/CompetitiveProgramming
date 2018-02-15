@@ -116,7 +116,7 @@ pair<int, vector<edge> > mst_prim_2(vector< vector<edge>> adj_list) // O(E logV)
 		vis[e.to] = true;
 		mst_cost += e.w;
 		
-		if (e.to) edges.push_back(e);
+		if (e.to) edges.push_back(e);  // To Avoid adding the first edge
 		
 		for (auto ne : adj_list[e.to]) {
 			if (!vis[ne.to]) {
