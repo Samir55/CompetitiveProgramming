@@ -16,6 +16,8 @@ int vis[10];
 vector< vector<int> > g;
 vector< vector<pair<int, int>>> gcost;
 
+// DSU
+
 struct UnionFind {
 	vector<int> rank, parent; // Use rank compression method.
 	int forests;
@@ -60,17 +62,18 @@ struct UnionFind {
 	}
 };
 
+// Prim's algorithm
+
 struct edge {
-	int from, to , w;
-	
-	edge(int from, int to, int w) : from(from), to(to), w(w) {}
-	
-	bool operator < (const edge& e) const {
-		return w > e.w;
-	}
+    int from, to , w;
+    
+    edge(int from, int to, int w) : from(from), to(to), w(w) {}
+    
+    bool operator < (const edge& e) const {
+        return w > e.w;
+    }
 };
 
-// Prim's algorithm 
 pair<int, vector<edge>> mst_prim_1(vector<edge> edgelist, vector<vector<int>> adj_mat) // O(v^2)
 { 
 	int cur_node = 0, n = adj_mat.size();
@@ -126,6 +129,7 @@ pair<int, vector<edge> > mst_prim_2(vector< vector<edge>> adj_list) // O(E logV)
 }
  
 // Kruksal algorithm.
+
 pair<int, vector<edge>> mst_kruskal(vector<edge> edgeList, int n) {
 	UnionFind uf(n);
 	vector<edge> edges;
@@ -146,6 +150,7 @@ pair<int, vector<edge>> mst_kruskal(vector<edge> edgeList, int n) {
 	return make_pair(mst_cost, edges);
 }
 
+// Sieve prime numbers generator.
 
 void sieve() {
 vector<bool> isPrime(1000000+1, true);
@@ -165,15 +170,8 @@ vector<bool> isPrime(1000000+1, true);
 
 }
 
-/// CHECKING.
-//~ lp2(i, n) {
-        //~ cout << i << " " << g[i].size() <<  " ";
-        //~ lp(j, g[i].size()) {
-           //~ cout << g[i][j].first << " ";
-        //~ }
-        //~ cout << endl;
-    //~ }
-    
+// DFS / BFS / Dijkstra.
+
 void bfs(int src) {
 	vis[src] = true;
 	queue<int> q;
@@ -228,6 +226,15 @@ void Dijkstra(int src, int dest = -1000) {
 	}
 }
 
-int main() {freopen("input.txt", "r", stdin); 
+/// CHECKING.
+//~ lp2(i, n) {
+//~ cout << i << " " << g[i].size() <<  " ";
+//~ lp(j, g[i].size()) {
+//~ cout << g[i][j].first << " ";
+//~ }
+//~ cout << endl;
+//~ }
+
+int main() {freopen("input.txt", "r", stdin);
 return 0;
 }
