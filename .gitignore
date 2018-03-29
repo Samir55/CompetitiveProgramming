@@ -1,3 +1,5 @@
 *.cpp~
 *.out
+.out
 MyFile
+.DS_Store
